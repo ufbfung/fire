@@ -171,7 +171,7 @@ def main():
     monthly_contribution = st.sidebar.number_input("Enter your monthly contribution to taxable accounts:", value=500)
     employer_match = st.sidebar.number_input("Enter your annual employer match in numbers (not percent):", value=0)
     annual_expenses = st.sidebar.number_input("Enter your annual expenses:", value=60000)
-    fire_number = st.sidebar.number_input("Enter your FIRE number: ", value=calculate_fire_number(annual_expenses))
+    fire_number = st.sidebar.number_input("Enter your FIRE number (defaults to 25 x annual expenses): ", value=calculate_fire_number(annual_expenses))
     interest_rate = st.sidebar.number_input("Enter the interest rate you want to use for investments:", value=5)
 
     # Calculate the fire stats
