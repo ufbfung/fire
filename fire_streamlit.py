@@ -81,13 +81,13 @@ def calculate_saving_years(current_age, retirement_age):
 def calculate_savings_needed(fire_number, total_savings, saving_years):
     # Check if saving_years is zero
     if saving_years == 0:
-        print("Error: The number of saving years cannot be zero.")
+        st.warning("Warning: The number of saving years is zero. Please adjust your retirement age.")
         return 0, 0
 
     # Calculate the savings needed
     remaining_savings_needed = fire_number - total_savings
 
-    print(f"\nBased on projected value...\n   You need ${remaining_savings_needed:,.2f} more to hit your FIRE number.")
+    st.write(f"\nBased on projected value...\n   You need ${remaining_savings_needed:,.2f} more to hit your FIRE number.")
 
     # Calculate annual and monthly savings needed based on the remaining savings goal
     annual_savings = remaining_savings_needed / saving_years
@@ -119,8 +119,8 @@ def calc_401k_ira_hsa_contributions(interest_rate, saving_years):
 
 def main():
     # Get FIRE Goals
-    current_age = st.number_input("Enter your current age:")
-    retirement_age = st.number_input("Enter your retirement age:")
+    current_age = int(st.number_input("Enter your current age:"))
+    retirement_age = int(st.number_input("Enter your retirement age:"))
 
     # Get current savings
     current_savings = st.number_input("Enter your current savings:")
