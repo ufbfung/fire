@@ -164,17 +164,17 @@ def main():
     st.title("FIRE Projection Calculator")
     st.sidebar.header("User Inputs")
 
-    current_age = st.sidebar.number_input("Enter your current age:", value=30)
-    retirement_age = st.sidebar.number_input("Enter your retirement age:", value=60)
+    current_age = st.sidebar.number_input("Enter your current age:", value=18)
+    retirement_age = st.sidebar.number_input("Enter your retirement age:", value=40)
     saving_years = retirement_age - current_age
-    current_savings = st.sidebar.number_input("Enter your current savings:", value=100000)
-    monthly_contribution = st.sidebar.number_input("Enter your monthly contribution to taxable accounts:", value=2000)
-    employer_match = st.sidebar.number_input("Enter your annual employer match in numbers (not percent):", value=5000)
-    annual_expenses = st.sidebar.number_input("Enter your annual expenses:", value=40000)
+    current_savings = st.sidebar.number_input("Enter your current savings:", value=75000)
+    monthly_contribution = st.sidebar.number_input("Enter your monthly contribution to taxable accounts:", value=500)
+    employer_match = st.sidebar.number_input("Enter your annual employer match in numbers (not percent):", value=0)
+    annual_expenses = st.sidebar.number_input("Enter your annual expenses:", value=60000)
+    fire_number = st.sidebar.number_input("Enter your FIRE number: ", value=calculate_fire_number(annual_expenses))
     interest_rate = st.sidebar.number_input("Enter the interest rate you want to use for investments:", value=7)
 
     # Calculate the fire stats
-    fire_number = calculate_fire_number(annual_expenses)
     current_gap = fire_number - current_savings
 
     # Calculate the future value of current savings, tax-advantaged accounts, and monthly contributions
