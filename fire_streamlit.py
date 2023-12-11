@@ -155,7 +155,7 @@ def main():
     # Display Tables
     st.write("\n**FIRE Summary**")
     fire_summary_data = {
-        "Summary": ["FIRE Number", "Current Gap", "Future Gap"]
+        "Summary": ["FIRE Number", "Current Gap", "Future Gap"],
         "Result": [f"${fire_number:,.2f}", f"${gap:,.2f}", f"${remaining_savings_needed:,.2f}"]
     }
     fire_summary_table = st.table(fire_summary_table)
