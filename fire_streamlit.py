@@ -113,54 +113,42 @@ def main():
     total_savings = fv_total + total_contributions
     annual_savings, monthly_savings, remaining_savings_needed = calculate_savings_needed(fire_number, total_savings, saving_years)
     
-    # Display Tables
+    # Display FIRE Summary Line Chart
     st.write("\n**FIRE Summary**")
     
-    # Create a dataframe for the chart data
-    fire_chart_data = {
-    'Year': [str(year) for year in range(2023, 2023 + int(saving_years) + 1)],
-    'FIRE Number': [fire_number] * int(saving_years + 1),
+    # Create a dataframe for the line chart data
+    fire_line_chart_data = {
+        'Year': [str(year) for year in range(2023, 2023 + int(saving_years) + 1)],
+        'FIRE Number': [fire_number] * int(saving_years + 1),
+        'Remaining Savings Needed': [remaining_savings_needed] * int(saving_years + 1),
     }
 
-    # Calculate 401k, IRA, HSA contributions for each year
-    total_contributions_values = []
-    future_value_total_values = []
-    
-    for year in range(2023, 2023 + int(saving_years) + 1):
-        # Calculate contributions for the current year
-        set_max_key = f"set_max_{year}"
-        max_401k_key = f"max_401k_{year}"
-        max_ira_key = f"max_ira_{year}"
-        max_hsa_key = f"max_hsa_{year}"
-    
-        set_max = st.checkbox("Do you want to set the max for 401k, IRA, and HSA?", key=set_max_key)
-        employer_match = st.number_input("Enter total annual amount of employer match:", value=0, key=f"employer_match_{year}")
-    
-        if set_max:
-            max_401k = 23000
-            max_ira = 7000
-            max_hsa = 4150
-        else:
-            max_401k = st.number_input("Enter the max 401k contribution:", value=0, key=max_401k_key)
-            max_ira = st.number_input("Enter the max IRA contribution:", value=0, key=max_ira_key)
-            max_hsa = st.number_input("Enter the max HSA contribution:", value=0, key=max_hsa_key)
-    
-        # Calculate future value total for the current year
-        _, _, future_value_total = calc_future_value_combined(current_savings, monthly_contribution, year - 2023 + 1, interest_rate)
-    
-        # Append values to the lists
-        total_contributions_values.append(calc_tax_advantaged_contributions(max_401k + employer_match, interest_rate, year - 2023 + 1))
-        future_value_total_values.append(future_value_total)
-    
-    # Add lists to the chart data dictionary
-    fire_chart_data['Total Contributions'] = total_contributions_values
-    fire_chart_data['Future Value Total'] = future_value_total_values
-    
-    # Create the dataframe
-    fire_chart_df = pd.DataFrame(fire_chart_data)
-    
+    # Create the dataframe for the line chart
+    fire_line_chart_df = pd.DataFrame(fire_line_chart_data)
+
     # Plotting
-    st.line_chart(fire_chart_df.set_index('Year'))
+    st.line_chart(fire_line_chart_df.set_index('Year'))
+
+    # Display Contributions Table
+    st.write("\n**Contributions Summary**")
+
+    # Create a dataframe for the contributions table
+    contributions_table_data = {
+        'Year': [str(year) for year in range(2023, 2023 + int(saving_years) + 1)],
+        'Principal': [fv_principal] * int(saving_years + 1),
+        'Monthly Contributions': [fv_monthly] * int(saving_years + 1),
+        '401k': [total_401k] * int(saving_years + 1),
+        '401k Employer Contributions': [employer_match] * int(saving_years + 1),
+        'IRA': [total_ira] * int(saving_years + 1),
+        'HSA': [total_hsa] * int(saving_years + 1),
+        'Total': [total_contributions] * int(saving_years + 1),
+    }
+
+    # Create the dataframe for the contributions table
+    contributions_table_df = pd.DataFrame(contributions_table_data)
+
+    # Display the contributions table
+    st.table(contributions_table_df)
 
     # Current savings + monthly contributions
     st.write("\n**Future Value of Current Savings + Monthly Contributions**")
