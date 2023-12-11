@@ -190,7 +190,7 @@ def main():
 
     # Display Calculations
     st.header("FIRE Projection:")
-    st.dataframe(final_df.style.format({'Year': '{:.0f}', **{col: '${:,.2f}' for col in final_df.columns if col != 'Year'}}))
+    st.dataframe(final_df.style.format({'Year': '{:.0f}', **{col: '${:,.2f}' for col in final_df.columns if col != 'Year'}}).hide(axis="index"))
 
     # Calculate remaining gap and additional savings needed
     additional_annual_savings_needed = last_year_gap / saving_years
@@ -205,7 +205,7 @@ def main():
 
     # Display additional savings needed
     st.header("Additional Savings Needed:")
-    st.dataframe(additional_savings_df.style.format({'Total Gap': '${:,.2f}', 'Additional Annual Savings Needed': '${:,.2f}', 'Additional Monthly Savings Needed': '${:,.2f}'}))
+    st.dataframe(additional_savings_df.style.format({'Total Gap': '${:,.2f}', 'Additional Annual Savings Needed': '${:,.2f}', 'Additional Monthly Savings Needed': '${:,.2f}'}).hide(axis="index"))
 
 if __name__ == "__main__":
     main()
