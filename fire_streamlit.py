@@ -116,7 +116,7 @@ def main():
     # Display Tables
     st.write("\n**FIRE Summary**")
     # Create a dataframe for the chart data
-     fire_chart_data = {
+    fire_chart_data = {
         'Year': range(2023, 2023 + int(saving_years) + 1),
         'FIRE Number': [fire_number] * int(saving_years + 1),
         'Current Gap': [gap] * int(saving_years + 1),
