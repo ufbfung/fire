@@ -171,7 +171,7 @@ def main():
     contributions_table = st.table(contributions_data)
 
     st.write("\n**Savings Needed**")
-    st.write(f"   This translates to an additional ${annual_savings:,.2f} annually or ${monthly_savings:,.2f} monthly to hit your FIRE number in {saving_years:,.0f} years.")
+    st.write(f"   This translates to the following additional amounts to hit your FIRE number over the next {saving_years:,.0f} years.")
     savings_needed_data = {
         "Timeframe": ["Annual", "Monthly"],
         "Savings Needed": [f"${annual_savings:,.2f}", f"${monthly_savings:,.2f}"]
