@@ -49,7 +49,7 @@ def calculate_saving_years(current_age, retirement_age):
 def calculate_savings_needed(fire_number, total_savings, saving_years):
     if saving_years == 0:
         st.warning("Warning: The number of saving years is zero. Please adjust your retirement age.")
-        return 0, 0
+        return 0, 0, 0  # Add a placeholder value for the third variable
 
     remaining_savings_needed = fire_number - total_savings
     annual_savings = remaining_savings_needed / saving_years
