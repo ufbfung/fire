@@ -119,13 +119,14 @@ def plot_fire_journey(final_df, fire_number, saving_years):
     formatter = ticker.StrMethodFormatter(money_format)
 
     # Plot the annual total
-    plt.plot(final_df['Year'], final_df['Annual Total'], label='Annual Total', marker='o')
+    fig, ax = plt.subplots()
+    ax.plot(final_df['Year'], final_df['Annual Total'], label='Annual Total', marker='o')
 
     # Add a horizontal line for the fire number
-    plt.axhline(y=fire_number, color='r', linestyle='--', label='FIRE Number')
+    ax.axhline(y=fire_number, color='r', linestyle='--', label='FIRE Number')
 
     # Shade the region between the annual total and the fire number
-    plt.fill_between(final_df['Year'], final_df['Annual Total'], fire_number, where=(final_df['Annual Total'] < fire_number), color='lightcoral', alpha=0.5, label='Gap to FIRE')
+    ax.fill_between(final_df['Year'], final_df['Annual Total'], fire_number, where=(final_df['Annual Total'] < fire_number), color='lightcoral', alpha=0.5, label='Gap to FIRE')
 
     # Calculate and display the exact amount of the gap in the last year
     last_year = final_df['Year'].max()
@@ -135,25 +136,25 @@ def plot_fire_journey(final_df, fire_number, saving_years):
     middle_year = final_df['Year'].max() - 0.5
 
     # Display total gap in the middle of the shaded region
-    plt.text(middle_year, fire_number - last_year_gap / 2, f'Total Gap: ${last_year_gap:,.2f}', color='blue', fontsize=10, ha='center')
+    ax.text(middle_year, fire_number - last_year_gap / 2, f'Total Gap: ${last_year_gap:,.2f}', color='blue', fontsize=10, ha='center')
 
     # Set labels and title
-    plt.xlabel('Year')
-    plt.ylabel('Annual Total')
-    plt.title('FIRE Journey')
+    ax.set_xlabel('Year')
+    ax.set_ylabel('Annual Total')
+    ax.set_title('FIRE Journey')
 
     # Add money format to y-axis ticks
-    plt.gca().get_yaxis().set_major_formatter(formatter)
+    ax.get_yaxis().set_major_formatter(formatter)
 
     # Add legend
-    plt.legend()
+    ax.legend()
 
     # Add whimsical decorations
-    plt.gcf().set_facecolor('#eeeeee')  # Set background color
-    plt.grid(axis='y', linestyle='--', alpha=0.7, linewidth=0.5, color='gray')  # Add dashed grid lines
+    fig.set_facecolor('#eeeeee')  # Set background color
+    ax.grid(axis='y', linestyle='--', alpha=0.7, linewidth=0.5, color='gray')  # Add dashed grid lines
 
     # Show the plot
-    st.pyplot()
+    st.pyplot(fig)
 
     # return last year gap
     return last_year_gap
@@ -163,13 +164,13 @@ def main():
     st.title("FIRE Projection Calculator")
     st.sidebar.header("User Inputs")
 
-    current_age = st.sidebar.number_input("Enter your current age:", value=18)
-    retirement_age = st.sidebar.number_input("Enter your retirement age:", value=35)
+    current_age = st.sidebar.number_input("Enter your current age:", value=30)
+    retirement_age = st.sidebar.number_input("Enter your retirement age:", value=60)
     saving_years = retirement_age - current_age
-    current_savings = st.sidebar.number_input("Enter your current savings:", value=150000)
-    monthly_contribution = st.sidebar.number_input("Enter your monthly contribution to taxable accounts:", value=500)
-    employer_match = st.sidebar.number_input("Enter your annual employer match in numbers (not percent):", value=0)
-    annual_expenses = st.sidebar.number_input("Enter your annual expenses:", value=60000)
+    current_savings = st.sidebar.number_input("Enter your current savings:", value=100000)
+    monthly_contribution = st.sidebar.number_input("Enter your monthly contribution to taxable accounts:", value=2000)
+    employer_match = st.sidebar.number_input("Enter your annual employer match in numbers (not percent):", value=5000)
+    annual_expenses = st.sidebar.number_input("Enter your annual expenses:", value=40000)
     interest_rate = st.sidebar.number_input("Enter the interest rate you want to use for investments:", value=7)
 
     # Calculate the fire stats
