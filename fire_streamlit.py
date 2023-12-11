@@ -98,6 +98,7 @@ def calculate_savings_needed(fire_number, total_savings, saving_years):
 def calc_401k_ira_hsa_contributions(interest_rate, saving_years):
     # If the user wants to set the max for all three accounts
     set_max = st.checkbox("Do you want to set the max for 401k, IRA, and HSA?")
+    employer_match = st.number_input("Enter total annual amount of employer match:", value=0)
 
     if set_max:
         max_401k = 23000
@@ -109,7 +110,7 @@ def calc_401k_ira_hsa_contributions(interest_rate, saving_years):
         max_hsa = st.number_input("Enter the max HSA contribution:", value=0)
 
     # Calculate the total future value across all three accounts
-    total_401k = calc_tax_advantaged_contributions(max_401k, interest_rate, saving_years)
+    total_401k = calc_tax_advantaged_contributions(max_401k + employer_match, interest_rate, saving_years)
     total_ira = calc_tax_advantaged_contributions(max_ira, interest_rate, saving_years)
     total_hsa = calc_tax_advantaged_contributions(max_hsa, interest_rate, saving_years)
 
