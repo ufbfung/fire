@@ -119,8 +119,6 @@ def main():
     fire_chart_data = {
         'Year': [str(year) for year in range(2023, 2023 + int(saving_years) + 1)],
         'FIRE Number': [fire_number] * int(saving_years + 1),
-        'Current Gap': [gap] * int(saving_years + 1),
-        'Future Gap': [remaining_savings_needed] * int(saving_years + 1),
         'Total Contributions': [total_contributions] * int(saving_years + 1),
         'Future Value Total': [fv_total] * int(saving_years + 1)
     }
