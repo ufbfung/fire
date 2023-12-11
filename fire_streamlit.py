@@ -153,8 +153,8 @@ def main():
     # Display Tables
     st.write("\n**FIRE Summary**")
     fire_summary_data = {
-        "Summary": ["FIRE Number", "Current Gap", "Future Gap"],
-        "Result": [f"${fire_number:,.2f}", f"${gap:,.2f}", f"${remaining_savings_needed:,.2f}"]
+        "Summary": ["FIRE Number", "Current Gap", "Years to retirement", "Future Gap"],
+        "Result": [f"${fire_number:,.2f}", f"${gap:,.2f}", f"${saving_years:,.2f}",f"${remaining_savings_needed:,.2f}"]
     }
     fire_summary_table = st.table(fire_summary_data)
     
@@ -173,7 +173,7 @@ def main():
     }
     contributions_table = st.table(contributions_data)
 
-    st.write("\n**Savings Needed**")
+    st.write("\n**Action Needed**")
     st.write(f"   This translates to the following additional amounts to hit your FIRE number over the next {saving_years:,.0f} years.")
     savings_needed_data = {
         "Timeframe": ["Annual", "Monthly"],
