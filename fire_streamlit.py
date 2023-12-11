@@ -119,20 +119,20 @@ def calc_401k_ira_hsa_contributions(interest_rate, saving_years):
 
 def main():
     # Get FIRE Goals
-    current_age = st.number_input("Enter your current age:")
-    retirement_age = st.number_input("Enter your retirement age:")
+    current_age = int(st.number_input("Enter your current age:", value=0))
+    retirement_age = int(st.number_input("Enter your retirement age:", value=0))
 
     # Get current savings
-    current_savings = st.number_input("Enter your current savings:")
+    current_savings = st.number_input("Enter your current savings:", value=0)
 
     # Calculate future value with existing monthly contribution
-    monthly_contribution = st.number_input("Enter your monthly contribution to taxable accounts:")
+    monthly_contribution = st.number_input("Enter your monthly contribution to taxable accounts:", value=0)
 
     # Calculate saving years
     saving_years = calculate_saving_years(current_age, retirement_age)
 
     # Set an interest rate
-    interest_rate = st.number_input("Enter interest rate to use for investments:")
+    interest_rate = st.number_input("Enter interest rate to use for investments:", value=0)
 
     # Calculate FIRE number
     annual_expenses = st.number_input("Enter your annual expenses:")
@@ -150,21 +150,28 @@ def main():
 
     # Calculate value total with principal and monthly
     fv_principal, fv_monthly, fv_total = calc_future_value_combined(current_savings, monthly_contribution, saving_years, interest_rate)
-    st.write(f"\nIn {saving_years:,.0f} years...")
-    st.write(f"   Projected value of your principal will be ${fv_principal:,.2f}")
-    st.write(f"   Projected value of your monthly contributions will be ${fv_monthly:,.2f}")
-    st.write(f"   Projected value of both will be ${fv_total:,.2f}")
+    
+    # Display tables
+    st.write("\n**Projected Values**")
+    projected_values_data = {
+        "Category": ["Principal", "Monthly Contributions", "Total"],
+        "Projected Value": [fv_principal, fv_monthly, fv_total]
+    }
+    projected_values_table = st.table(projected_values_data)
 
-    # 401k, IRA, HSA contributions
-    st.write(f"\n   Total contributions across 401k, IRA, and HSA will be ${total_contributions:,.2f}")
-    st.write(f"      401k contribution: ${total_401k:,.2f}")
-    st.write(f"      IRA contribution: ${total_ira:,.2f}")
-    st.write(f"      HSA contribution: ${total_hsa:,.2f}")
+    st.write("\n**Tax-Advantaged Accounts Contributions**")
+    contributions_data = {
+        "Account": ["401k", "IRA", "HSA", "Total"],
+        "Contributions": [total_401k, total_ira, total_hsa, total_contributions]
+    }
+    contributions_table = st.table(contributions_data)
 
-    # Calculate savings needed
-    total_savings = fv_total + total_contributions
-    annual_savings, monthly_savings = calculate_savings_needed(fire_number, total_savings, saving_years)
-    st.write(f"   This translates to an additional ${annual_savings:,.2f} annually or ${monthly_savings:,.2f} monthly to hit your FIRE number in {saving_years:,.0f} years.")
+    st.write("\n**Savings Needed**")
+    savings_needed_data = {
+        "Timeframe": ["Annual", "Monthly"],
+        "Savings Needed": [annual_savings, monthly_savings]
+    }
+    savings_needed_table = st.table(savings_needed_data)
 
 if __name__ == "__main__":
     main()
