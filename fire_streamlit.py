@@ -115,15 +115,37 @@ def main():
     
     # Display Tables
     st.write("\n**FIRE Summary**")
+    
     # Create a dataframe for the chart data
     fire_chart_data = {
-        'Year': [str(year) for year in range(2023, 2023 + int(saving_years) + 1)],
-        'FIRE Number': [fire_number] * int(saving_years + 1),
-        'Total Contributions': [total_contributions] * int(saving_years + 1),
-        'Future Value Total': [fv_total] * int(saving_years + 1)
+    'Year': [str(year) for year in range(2023, 2023 + int(saving_years) + 1)],
+    'FIRE Number': [fire_number] * int(saving_years + 1),
+    'Current Gap': [gap] * int(saving_years + 1),
+    'Future Gap': [remaining_savings_needed] * int(saving_years + 1),
     }
-    fire_chart_df = pd.DataFrame(fire_chart_data)
 
+    # Calculate 401k, IRA, HSA contributions for each year
+    total_contributions_values = []
+    future_value_total_values = []
+    
+    for year in range(2023, 2023 + int(saving_years) + 1):
+        # Calculate contributions for the current year
+        total_contributions, _, _, _ = calc_401k_ira_hsa_contributions(interest_rate, year - 2023 + 1)
+    
+        # Calculate future value total for the current year
+        _, _, future_value_total = calc_future_value_combined(current_savings, monthly_contribution, year - 2023 + 1, interest_rate)
+    
+        # Append values to the lists
+        total_contributions_values.append(total_contributions)
+        future_value_total_values.append(future_value_total)
+    
+    # Add lists to the chart data dictionary
+    fire_chart_data['Total Contributions'] = total_contributions_values
+    fire_chart_data['Future Value Total'] = future_value_total_values
+    
+    # Create the dataframe
+    fire_chart_df = pd.DataFrame(fire_chart_data)
+    
     # Plotting
     st.line_chart(fire_chart_df.set_index('Year'))
 
