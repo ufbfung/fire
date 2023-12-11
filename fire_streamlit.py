@@ -164,8 +164,8 @@ def main():
     st.title("FIRE Projection Calculator")
     st.sidebar.header("User Inputs")
 
-    current_age = st.sidebar.number_input("Enter your current age:", value=18)
-    retirement_age = st.sidebar.number_input("Enter your retirement age:", value=45)
+    current_age = st.sidebar.number_input("Enter your current age:", value=25)
+    retirement_age = st.sidebar.number_input("Enter your retirement age:", value=40)
     saving_years = retirement_age - current_age
     current_savings = st.sidebar.number_input("Enter your current savings:", value=0)
     monthly_contribution = st.sidebar.number_input("Enter your monthly contribution to taxable accounts:", value=500)
