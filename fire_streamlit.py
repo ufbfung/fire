@@ -11,7 +11,6 @@ import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
-import seaborn as sns
 
 def calculate_fire_number(annual_expenses):
     return annual_expenses * 25
