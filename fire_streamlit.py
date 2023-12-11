@@ -150,6 +150,10 @@ def main():
 
     # Calculate value total with principal and monthly
     fv_principal, fv_monthly, fv_total = calc_future_value_combined(current_savings, monthly_contribution, saving_years, interest_rate)
+
+    # Calculate savings needed
+    total_savings = fv_total + total_contributions
+    annual_savings, monthly_savings = calculate_savings_needed(fire_number, total_savings, saving_years)
     
     # Display tables
     st.write("\n**Projected Values**")
@@ -167,6 +171,7 @@ def main():
     contributions_table = st.table(contributions_data)
 
     st.write("\n**Savings Needed**")
+    st.write(f"   This translates to an additional ${annual_savings:,.2f} annually or ${monthly_savings:,.2f} monthly to hit your FIRE number in {saving_years:,.0f} years.")
     savings_needed_data = {
         "Timeframe": ["Annual", "Monthly"],
         "Savings Needed": [annual_savings, monthly_savings]
