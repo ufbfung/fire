@@ -157,6 +157,17 @@ def main():
         "Result": [f"${fire_number:,.2f}", f"${gap:,.2f}", f"{saving_years:,.0f}",f"${remaining_savings_needed:,.2f}"]
     }
     fire_summary_table = st.table(fire_summary_data)
+
+    # Visualize data using line chart
+    st.write("\n**Visualizing FIRE Journey**")
+    fire_chart_data = {
+        'Years': [0, saving_years],
+        'FIRE Number': [fire_number, fire_number],
+        'Current Gap': [current_savings, current_savings + gap],
+        'Future Gap': [total_savings, total_savings + remaining_savings_needed]
+    }
+    fire_chart_df = pd.DataFrame(fire_chart_data)
+    fire_chart = st.line_chart(fire_chart_df.set_index('Years'))
     
     # Current savings + monthly contributions
     st.write("\n**Future Value of Current Savings + Monthly Contributions**")
