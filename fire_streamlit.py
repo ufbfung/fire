@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 
 def calculate_fire_number(annual_expenses):
     return annual_expenses * 25
