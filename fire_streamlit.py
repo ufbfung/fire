@@ -166,7 +166,7 @@ def main():
     st.write("\n**Tax-Advantaged Accounts Contributions**")
     contributions_data = {
         "Account": ["401k", "IRA", "HSA", "Total"],
-        "Contributions": [total_401k, total_ira, total_hsa, total_contributions]
+        "Contributions": [f"${total_401k:,.2f}", f"${total_ira:,.2f}", f"${total_hsa:,.2f}", f"${total_contributions:,.2f}"]
     }
     contributions_table = st.table(contributions_data)
 
@@ -174,7 +174,7 @@ def main():
     st.write(f"   This translates to an additional ${annual_savings:,.2f} annually or ${monthly_savings:,.2f} monthly to hit your FIRE number in {saving_years:,.0f} years.")
     savings_needed_data = {
         "Timeframe": ["Annual", "Monthly"],
-        "Savings Needed": [annual_savings, monthly_savings]
+        "Savings Needed": [f"${annual_savings:,.2f}", f"${monthly_savings:,.2f}"]
     }
     savings_needed_table = st.table(savings_needed_data)
 
