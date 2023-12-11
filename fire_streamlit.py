@@ -119,8 +119,8 @@ def calc_401k_ira_hsa_contributions(interest_rate, saving_years):
 
 def main():
     # Get FIRE Goals
-    current_age = int(st.number_input("Enter your current age:"))
-    retirement_age = int(st.number_input("Enter your retirement age:"))
+    current_age = st.number_input("Enter your current age:")
+    retirement_age = st.number_input("Enter your retirement age:")
 
     # Get current savings
     current_savings = st.number_input("Enter your current savings:")
