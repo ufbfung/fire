@@ -130,13 +130,28 @@ def main():
     
     for year in range(2023, 2023 + int(saving_years) + 1):
         # Calculate contributions for the current year
-        total_contributions, _, _, _ = calc_401k_ira_hsa_contributions(interest_rate, year - 2023 + 1)
+        set_max_key = f"set_max_{year}"
+        max_401k_key = f"max_401k_{year}"
+        max_ira_key = f"max_ira_{year}"
+        max_hsa_key = f"max_hsa_{year}"
+    
+        set_max = st.checkbox("Do you want to set the max for 401k, IRA, and HSA?", key=set_max_key)
+        employer_match = st.number_input("Enter total annual amount of employer match:", value=0, key=f"employer_match_{year}")
+    
+        if set_max:
+            max_401k = 23000
+            max_ira = 7000
+            max_hsa = 4150
+        else:
+            max_401k = st.number_input("Enter the max 401k contribution:", value=0, key=max_401k_key)
+            max_ira = st.number_input("Enter the max IRA contribution:", value=0, key=max_ira_key)
+            max_hsa = st.number_input("Enter the max HSA contribution:", value=0, key=max_hsa_key)
     
         # Calculate future value total for the current year
         _, _, future_value_total = calc_future_value_combined(current_savings, monthly_contribution, year - 2023 + 1, interest_rate)
     
         # Append values to the lists
-        total_contributions_values.append(total_contributions)
+        total_contributions_values.append(calc_tax_advantaged_contributions(max_401k + employer_match, interest_rate, year - 2023 + 1))
         future_value_total_values.append(future_value_total)
     
     # Add lists to the chart data dictionary
