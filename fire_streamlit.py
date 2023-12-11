@@ -115,22 +115,17 @@ def main():
     
     # Display Tables
     st.write("\n**FIRE Summary**")
-    fire_summary_data = {
-        "Summary": ["FIRE Number", "Current Gap", "Years to retirement", "Future Gap"],
-        "Result": [f"${fire_number:,.2f}", f"${gap:,.2f}", f"{saving_years:,.0f}",f"${remaining_savings_needed:,.2f}"]
-    }
-    fire_summary_table = st.table(fire_summary_data)
-
-    # Visualize data using line chart
-    st.write("\n**Visualizing FIRE Journey**")
+    # Create a dataframe for the chart data
     fire_chart_data = {
-        'Years': [0, saving_years],
-        'FIRE Number': [fire_number, fire_number],
-        'Current Gap': [current_savings, current_savings + gap],
-        'Future Gap': [total_savings, total_savings + remaining_savings_needed]
+        'Year': range(2023, 2023 + int(saving_years) + 1),
+        'FIRE Number': [fire_number] * int(saving_years) + [0],
+        'Current Gap': [gap] * int(saving_years) + [0],
+        'Future Gap': [remaining_savings_needed] * int(saving_years) + [0]
     }
     fire_chart_df = pd.DataFrame(fire_chart_data)
-    fire_chart = st.line_chart(fire_chart_df.set_index('Years'))
+
+    # Plotting
+    st.line_chart(fire_chart_df.set_index('Year'))
 
     # Current savings + monthly contributions
     st.write("\n**Future Value of Current Savings + Monthly Contributions**")
