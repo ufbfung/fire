@@ -77,7 +77,7 @@ def calc_401k_ira_hsa_contributions(interest_rate, saving_years):
 
     total_contributions = total_401k + total_ira + total_hsa
 
-    return total_contributions, total_401k, total_ira, total_hsa
+    return total_contributions, total_401k, total_ira, total_hsa, employer_match
 
 def main():
     # Get FIRE Goals
@@ -101,7 +101,7 @@ def main():
     fire_number = calculate_fire_number(annual_expenses)
 
     # Calculate 401k, IRA, HSA contributions
-    total_contributions, total_401k, total_ira, total_hsa = calc_401k_ira_hsa_contributions(interest_rate, saving_years)
+    total_contributions, total_401k, total_ira, total_hsa, employer_match = calc_401k_ira_hsa_contributions(interest_rate, saving_years)
 
     # Calculate current gap based on current savings
     gap = fire_number - current_savings
