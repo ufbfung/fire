@@ -87,8 +87,6 @@ def calculate_savings_needed(fire_number, total_savings, saving_years):
     # Calculate the savings needed
     remaining_savings_needed = fire_number - total_savings
 
-    st.write(f"\nBased on future value of your current savings, monthly contributions, & tax-advantaged accounts, you need ${remaining_savings_needed:,.2f} more to hit your FIRE number.")
-
     # Calculate annual and monthly savings needed based on the remaining savings goal
     annual_savings = remaining_savings_needed / saving_years
     monthly_savings = annual_savings / 12
@@ -150,7 +148,7 @@ def main():
 
     # Calculate savings needed
     total_savings = fv_total + total_contributions
-    annual_savings, monthly_savings, = calculate_savings_needed(fire_number, total_savings, saving_years)
+    annual_savings, monthly_savings, remaining_savings_needed = calculate_savings_needed(fire_number, total_savings, saving_years)
     
     # Display Tables
     st.write("\n**FIRE Summary**")
