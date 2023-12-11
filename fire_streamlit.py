@@ -156,10 +156,10 @@ def main():
     annual_savings, monthly_savings = calculate_savings_needed(fire_number, total_savings, saving_years)
     
     # Display tables
-    st.write("\n**Future Value of Current savings + monthly contributions**")
+    st.write("\n**Future Value of Current Savings + Monthly Contributions**")
     projected_values_data = {
-        "Category": ["Principal", "Monthly Contributions", "Total"],
-        "Projected Value": [fv_principal, fv_monthly, fv_total]
+        "Category": ["Current Savings", "Monthly Contributions", "Total"],
+        "Projected Value": [f"${fv_principal:,.2f}", f"${fv_monthly:,.2f}", f"${fv_total:,.2f}"]
     }
     projected_values_table = st.table(projected_values_data)
 
