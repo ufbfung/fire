@@ -156,7 +156,7 @@ def main():
         "Summary": ["FIRE Number", "Current Gap", "Future Gap"],
         "Result": [f"${fire_number:,.2f}", f"${gap:,.2f}", f"${remaining_savings_needed:,.2f}"]
     }
-    fire_summary_table = st.table(fire_summary_table)
+    fire_summary_table = st.table(fire_summary_data)
     
     # Current savings + monthly contributions
     st.write("\n**Future Value of Current Savings + Monthly Contributions**")
