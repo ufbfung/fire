@@ -87,13 +87,13 @@ def calculate_savings_needed(fire_number, total_savings, saving_years):
     # Calculate the savings needed
     remaining_savings_needed = fire_number - total_savings
 
-    st.write(f"\nBased on projected value...\n   You need ${remaining_savings_needed:,.2f} more to hit your FIRE number.")
+    st.write(f"\nBased on future value of your current savings, monthly contributions, & tax-advantaged accounts, you need ${remaining_savings_needed:,.2f} more to hit your FIRE number.")
 
     # Calculate annual and monthly savings needed based on the remaining savings goal
     annual_savings = remaining_savings_needed / saving_years
     monthly_savings = annual_savings / 12
 
-    return annual_savings, monthly_savings
+    return annual_savings, monthly_savings, remaining_savings_needed
 
 def calc_401k_ira_hsa_contributions(interest_rate, saving_years):
     # If the user wants to set the max for all three accounts
@@ -142,21 +142,25 @@ def main():
     # Calculate 401k, IRA, HSA contributions
     total_contributions, total_401k, total_ira, total_hsa = calc_401k_ira_hsa_contributions(interest_rate, saving_years)
 
-    # Display results based on assumptions
-    st.write(f"\nYour FIRE number is approximately ${fire_number:,.2f}.")
-
     # Calculate current gap based on current savings
     gap = fire_number - current_savings
-    st.write(f"Based on current savings, you are currently ${gap:,.2f} away from your FIRE number.")
 
     # Calculate value total with principal and monthly
     fv_principal, fv_monthly, fv_total = calc_future_value_combined(current_savings, monthly_contribution, saving_years, interest_rate)
 
     # Calculate savings needed
     total_savings = fv_total + total_contributions
-    annual_savings, monthly_savings = calculate_savings_needed(fire_number, total_savings, saving_years)
+    annual_savings, monthly_savings, = calculate_savings_needed(fire_number, total_savings, saving_years)
     
-    # Display tables
+    # Display Tables
+    st.write("\n**FIRE Summary**")
+    fire_summary_data = {
+        "Summary": ["FIRE Number", "Current Gap", "Future Gap"]
+        "Result": [f"${fire_number:,.2f}", f"${gap:,.2f}", f"${remaining_savings_needed:,.2f}"]
+    }
+    fire_summary_table = st.table(fire_summary_table)
+    
+    # Current savings + monthly contributions
     st.write("\n**Future Value of Current Savings + Monthly Contributions**")
     projected_values_data = {
         "Category": ["Current Savings", "Monthly Contributions", "Total"],
